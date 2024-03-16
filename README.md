@@ -1,5 +1,9 @@
 # Salsavolution
 
-Open website: https://4tt1l4.github.io/salsavolution/
+Brief history of different Latin music genres related to the development of salsa music.
 
-[![image](https://github.com/4TT1L4/salsavolution/assets/2914096/a6016856-d9d2-4717-a803-bc4f3f234820)](https://4tt1l4.github.io/salsavolution/)
+# Website
+
+https://4tt1l4.github.io/salsavolution/
+
+[![image](https://github.com/4TT1L4/salsavolution/assets/2914096/5347f8e0-9560-43d1-bb77-36f1a0831d99)](https://4tt1l4.github.io/salsavolution/)
