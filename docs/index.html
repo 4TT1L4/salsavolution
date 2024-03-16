@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salsavolution</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            display: flex;
+            margin: 0 auto; /* Center the container */
+        }
+        .left-box {
+            width: 1300px; /* Set width to 350 pixels */
+            padding: 20px;
+            background-color: #F0F4F7;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .description-box {
+            width: 400px;
+            height: auto; /* Ensures the height adjusts to content up to a max height */
+            max-height: 100%; /* Ensures the box does not grow beyond its container's height */
+            overflow: auto; /* Adds a scrollbar if content is too long */
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif; /* Fallback to sans-serif if Roboto is not available */
+            font-size: 18px; /* Makes the font size somewhat bigger */
+            text-align: justify; /* Justifies the text */
+            text-justify: inter-word; /* Improves readability for justified text */
+        }
+        .right-box {
+            width: 500px; /* Set width to 350 pixels */
+            padding: 5;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-box">
+            <img src="./genres.png" usemap="#image-map">
+
+            <map name="image-map">
+                <area onclick="handleClick('danzon')" alt="danzon" title="danzon"  coords="367,371,136,296" shape="rect">
+                <area onclick="handleClick('danzon-mambo')" alt="danzon-mambo" title="danzon-mambo"  coords="368,642,198,563" shape="rect">
+                <area onclick="handleClick('rumba')"  alt="rumba" title="rumba" coords="691,234,508,142" shape="rect">
+                <area onclick="handleClick('son')"  alt="son" title="son" coords="690,336,508,263" shape="rect">
+                <area onclick="handleClick('guajira')"  alt="guajira" title="guajira" coords="901,414,757,343" shape="rect">
+                <area onclick="handleClick('guaracha')"  alt="guaracha" title="guaracha" coords="325,383,477,456" shape="rect">
+                <area onclick="handleClick('son-montuno')"  alt="son-montuno" title="son-montuno" coords="509,407,689,481" shape="rect">
+                <area onclick="handleClick('guaguanco')"  alt="guaguanco" title="guaguanco" coords="881,495,1064,573" shape="rect">
+                <area onclick="handleClick('mambo')"  alt="mambo" title="mambo" coords="511,517,687,650" shape="rect">
+                <area onclick="handleClick('pachanga')"  alt="pachanga" title="pachanga" coords="510,684,693,752" shape="rect">
+                <area onclick="handleClick('salsa')"  alt="salsa" title="salsa" coords="881,759,1064,891" shape="rect">
+                <area onclick="handleClick('cha-cha')"  alt="cha-cha" title="cha-cha" coords="246,665,439,734" shape="rect">
+                <area onclick="handleClick('bogaloo')"  alt="bogaloo" title="bogaloo" coords="243,759,444,864" shape="rect">
+                <area onclick="handleClick('latin-soul')"  alt="latin-soul" title="latin-soul" coords="242,883,441,966" shape="rect">
+                <area onclick="handleClick('salsa-dura')"  alt="salsa-dura" title="salsa-dura" coords="706,974,890,1072" shape="rect">
+                <area onclick="handleClick('salsa-romantica')"  alt="salsa-romantica" title="salsa-romantica" coords="891,989,1081,1090" shape="rect">
+                <area onclick="handleClick('timba')"  alt="timba" title="timba" coords="1078,1010,1263,1110" shape="rect">
+                <area onclick="handleClick('classical')"  alt="classical" title="classical" coords="113,46,329,96" shape="rect">
+                <area onclick="handleClick('african')"  alt="african" title="african" coords="339,41,530,96" shape="rect">
+                <area onclick="handleClick('spanish')"  alt="spanish" title="spanish" coords="534,41,729,101" shape="rect">
+                <area onclick="handleClick('cuban-folk')"  alt="cuban-folk" title="cuban-folk" coords="734,40,924,101" shape="rect">
+                <area onclick="handleClick('flamenco')"  alt="flamenco" title="flamenco" coords="900,286,757,231" shape="rect">
+                <area onclick="handleClick('rnb')"  alt="rnb" title="rnb" coords="184,720,2,772" shape="rect">
+                <area onclick="handleClick('soul')"  alt="soul" title="soul" coords="183,845,6,892" shape="rect">
+                <area  onclick="handleClick('latin-jazz')" alt="latin-jazz" title="latin-jazz" coords="180,902,6,953" shape="rect">
+                <area  onclick="handleClick('jazz')" alt="jazz" title="jazz" coords="790,537,707,479" shape="rect">
+                <area  onclick="handleClick('doop-woop')" alt="doop-woop" title="doop-woop" coords="183,835,3,780" shape="rect">
+            </map>
+            
+    <script>
+        console.log("init...");
+        const playlistMapping = {
+                danzon: '1cigG4BbcSoRkhxlFJdY02', // https://open.spotify.com/playlist/1cigG4BbcSoRkhxlFJdY02?si=8ccf941458344c2f
+                'danzon-mambo': '0BbrpAxbjeuAGRe70Ntyrm',  // https://open.spotify.com/playlist/0BbrpAxbjeuAGRe70Ntyrm?si=7d1a859e21c24d41
+                rumba: '4tYvseuOMdUPwAmpEjMZqB', // https://open.spotify.com/playlist/4tYvseuOMdUPwAmpEjMZqB?si=4790d3a1c4cf470c
+                son: '6aObhvmO0kgJagu50Id9vi', // https://open.spotify.com/playlist/6aObhvmO0kgJagu50Id9vi?si=542e8b57a8a044e6
+                guajira: '1QfjmRYwIGHaLjFig3hSPZ', // TODO: make shorter
+                guaracha: '7uXWCJMakW0VsDz0RqjuqZ', // https://open.spotify.com/playlist/7uXWCJMakW0VsDz0RqjuqZ?si=bfb8166cd6214910
+                'son-montuno': '26ngsmmL1h2r4vrcJdB5UC', // https://open.spotify.com/playlist/26ngsmmL1h2r4vrcJdB5UC?si=a82ab02707ac475d
+                guaguanco: '2zSV2kWsduX9ZcQBgfaXzG', // https://open.spotify.com/playlist/2zSV2kWsduX9ZcQBgfaXzG?si=bedf51c7fce54f5a
+                jazz: '2fSRmIODurZZBMeMT2f1fF', // https://open.spotify.com/playlist/2fSRmIODurZZBMeMT2f1fF?si=260d4096530c4f05
+                mambo: '5l9Qmkqj0iZrIGNx509t3Q', // https://open.spotify.com/playlist/5l9Qmkqj0iZrIGNx509t3Q?si=c64239fa40034b6f
+                pachanga: '1CpJmq4tvcoyk3jjPYUV47',  // https://open.spotify.com/playlist/1CpJmq4tvcoyk3jjPYUV47?si=8d24e48b3d544423
+                'cha-cha': '53LjbprCFoIBn83YwBjylX', // TODO: make shorter
+                bogaloo: '5vSJxbkA0CsO09mMc4YB3r', // https://open.spotify.com/playlist/5vSJxbkA0CsO09mMc4YB3r?si=18389d0f743342c0
+                'latin-soul': '71MfkJIEaajBqFUlCSePI0', // https://open.spotify.com/playlist/71MfkJIEaajBqFUlCSePI0?si=399dbd6a6b7d4446
+                salsa: '0jQdl9K4ffKXtluwBt0bJq', // https://open.spotify.com/playlist/0jQdl9K4ffKXtluwBt0bJq?si=ba20efa4a6db468c
+                'salsa-dura': '2xPfqBsx6f5TOW8lrci19V', // https://open.spotify.com/playlist/2xPfqBsx6f5TOW8lrci19V?si=21fd40ffb4324260
+                'salsa-romantica': '6ruGze5gz4TpXThpeNb0O2', // https://open.spotify.com/playlist/6ruGze5gz4TpXThpeNb0O2?si=8dd66a02fdfa4856
+                timba: '3oboWjQFgqWeLJLxpBuMKg', // https://open.spotify.com/playlist/3oboWjQFgqWeLJLxpBuMKg?si=d066b5c4d9b547df
+                classical: '2fBueVcGd1A8KyaX3UOrJp', // https://open.spotify.com/playlist/2fBueVcGd1A8KyaX3UOrJp?si=29cc4ac6195d49f1
+                african: '382n1tqyhf07b5xPEwzpnw', // https://open.spotify.com/playlist/382n1tqyhf07b5xPEwzpnw?si=4996907fb2e5498f
+                spanish: '6SnuBf1pOSoqwHiv9PTWfy', // https://open.spotify.com/playlist/6SnuBf1pOSoqwHiv9PTWfy?si=c787561adfa54bc1
+                'cuban-folk': '1ehuSsIjRoIYH8UF6WlcGX', // https://open.spotify.com/playlist/1ehuSsIjRoIYH8UF6WlcGX?si=2f7467044b1747f4
+                flamenco: '0va0XfdHCaFBstZnPWvhlM', // https://open.spotify.com/playlist/0va0XfdHCaFBstZnPWvhlM?si=f13a058e0ad64993
+                rnb: '7iVUMGYyHvBE2EH3Pe2ceP', // https://open.spotify.com/playlist/7iVUMGYyHvBE2EH3Pe2ceP?si=d272beadd2244d9f
+                'doop-woop': "5XDHgzCJsYyS44DbjnwGHA", // https://open.spotify.com/playlist/5XDHgzCJsYyS44DbjnwGHA?si=252b81c0beae4091
+                soul: '0g8VQPB72FXTA3JfQzpaVN', // https://open.spotify.com/playlist/0g8VQPB72FXTA3JfQzpaVN?si=8e23a8594b714b8c
+                'latin-jazz': '32qBngIss4G7Um5ugdwEPH', // https://open.spotify.com/playlist/32qBngIss4G7Um5ugdwEPH?si=341653ab4e924cf2
+            };
+            const descriptionMapping = {
+                danzon: '<p>Danzón first appeared in the late 19th century.</p><p>Most prevalent in the 1920s-1950s.</p><p>Notable innovation: Blending European classical music with African rhythms.</p><p>Danzón is recognized as the official musical genre and dance of Cuba, evolving from the Cuban habanera and European dance forms. Its structure typically involves a paseo and a melodic theme, offering a sophisticated, instrumental texture that emphasizes flute, violins, and piano, underpinned by Afro-Cuban rhythms. This genre laid the groundwork for later developments in Cuban music, influencing the Mambo and Cha Cha Cha.</p>',
+                'danzon-mambo': '<p>Danzón first appeared in the late 19th century.</p><p>Most prevalent in the 1920s-1950s.</p><p>Notable innovation: Blending European classical music with African rhythms.</p><p>Danzón is recognized as the official musical genre and dance of Cuba, evolving from the Cuban habanera and European dance forms. Its structure typically involves a paseo and a melodic theme, offering a sophisticated, instrumental texture that emphasizes flute, violins, and piano, underpinned by Afro-Cuban rhythms. This genre laid the groundwork for later developments in Cuban music, influencing the Mambo and Cha Cha Cha.</p>',
+                rumba: "<p>Cuban Rumba first appeared in the late 19th century.</p><p>Most prevalent in the 1930s-1950s.</p><p>Styles include Yambú, Guaguancó, and Columbia, featuring complex rhythms, call and response singing, and expressive dance.</p><p>Rumba is a profound expression of Afro-Cuban culture, deriving its roots from African slaves in Cuba. It's performed with intense energy and involves intricate drum patterns and dances that often tell a story or depict everyday life. Rumba remains a vital element of Cuba's musical heritage, showcasing the depth and richness of its Afro-Cuban origins.</p>",
+                son: '<p>Son first appeared in the late 19th century.</p><p>Most prevalent in the 1930s-1940s.</p><p>Notable innovation: Fusion of African rhythms with Spanish guitar.</p><p>Son Cubano is a fundamental Cuban musical form that combines the structure and instruments of Spanish canción with African rhythms and percussion instruments. It is the foundation of most forms of modern salsa music. Its infectious beat, poetic lyrics, and dynamic instrumentation make it a cornerstone of Latin music.</p>',
+                guajira: "<p>Guajira first appeared in the 1920s.</p><p>Most prevalent in the 1950s-1960s.</p><p>Features country music of Cuba, lyrically focusing on rural life and blending Spanish melodic elements with Afro-Cuban rhythms.</p><p>Guajira is a genre that celebrates the Cuban countryside with its lyrical emphasis on nature, love, and peasant life. It's characterized by a slower tempo and a more contemplative mood, often performed with guitar and voice, and sometimes with a full band that includes Cuban percussion.</p>",
+                guaracha: '<p>Guaracha first appeared in the late 1800s.</p><p>Most prevalent in the 1930s-1950s.</p><p>Known for its upbeat, fast tempo and humorous, often satirical lyrics.</p><p>Guaracha is a lively, fast-paced genre that originated as a form of satirical theater music. Over time, it evolved into a dance music genre known for its quick rhythm and witty, often provocative lyrics. Guaracha addresses social and political issues with humor and irony, making it a popular form of entertainment and social commentary.</p>',
+                'son-montuno': '<p>Son Montuno first appeared in the early 1900s.</p><p>Most prevalent in the 1940s-1950s.</p><p>Distinctive for its more complex rhythms and improvisation.</p><p>Son Montuno is an evolution of the Cuban Son, characterized by a more syncopated rhythm and the introduction of the montuno section, where vocal improvisation over repeated chord progressions highlights the genre. This style greatly influenced the development of salsa music, contributing to its rhythmic foundation and improvisational nature.</p>',
+                guaguanco: "<p>Guaguancó, a form of Rumba, first appeared in the 1930s.</p><p>Most prevalent in the 1950s-1970s.</p><p>Features call and response vocals, complex percussion.</p><p>Guaguancó is a compelling expression of Afro-Cuban culture, characterized by its intricate rhythms and the dance of seduction between a man and a woman. It's one of the most popular forms of rumba, distinguished by its dynamic and complex percussive elements and its deep cultural significance within Afro-Cuban traditions.</p>",
+                jazz: "<p>Jazz first appeared at the beginning of the 20th century, deeply rooted in the African American communities of New Orleans. It was a confluence of blues, ragtime, and other musical forms, evolving into a distinct genre that emphasized improvisation, syncopated rhythms, and complex harmonies.</p><p>Its golden age can be traced to the 1920s and 1930s, during the Jazz Age and the Swing Era, though it has continued to evolve and remains influential today. Jazz spread from its birthplace in New Orleans to cities like Chicago and New York, becoming a major part of American cultural identity.</p><p>One of the most significant innovations in jazz was the development of improvisation, allowing musicians to spontaneously create melodies over the structure of a song. This emphasis on improvisation has become a hallmark of jazz, distinguishing it from other musical genres. Additionally, the introduction of swing rhythms, bebop, and modal jazz at different points in its history has continually refreshed its sound and expanded its appeal.</p><p>Jazz has a rich and diverse history, encompassing a variety of styles including Dixieland, swing, bebop, cool jazz, hard bop, free jazz, and fusion, among others. It has been a platform for extraordinary musicianship and innovation, featuring legendary artists like Louis Armstrong, Duke Ellington, Charlie Parker, Miles Davis, and John Coltrane. These artists and others have contributed to the genre's rich tapestry, making jazz not only an important American art form but also a significant cultural export that has influenced music worldwide. Jazz's ability to absorb and integrate other musical elements has kept it on the forefront of innovation, ensuring its continued relevance and vitality in the global music scene.</p>",
+                mambo: '<p>Mambo first appeared in the 1940s.</p><p>Most prevalent in the 1950s.</p><p>Introduced complex counter-rhythms and big band arrangements.</p><p>Mambo captivated audiences with its explosive energy and intricate arrangements, blending Afro-Cuban rhythms with big band jazz. The genre reached its peak in the dance halls of New York City, where it became synonymous with the sophisticated and exhilarating dance styles that evolved alongside the music.</p>',
+                pachanga: '<p>Pachanga first appeared in the 1950s.</p><p>Most prevalent in the late 1950s-Early 1960s.</p><p>A mixture of son montuno and merengue.</p><p>Pachanga emerged as a vibrant and rhythmic dance genre, characterized by its lively tempo and incorporation of elements from both Son Montuno and Merengue. Its festive nature and engaging rhythm made it a popular dance music, contributing to the rich tapestry of Latin American musical styles.</p>',
+                salsa: '<p>Salsa first appeared in the 1960s.</p><p>Most prevalent in the 1970s-1980s.</p><p>A fusion of Cuban son montuno, Puerto Rican bomba and plena, and other Latin styles.</p><p>Salsa is a dynamic and influential genre that emerged from the cultural melting pot of New York City, combining elements of Cuban and Puerto Rican music with jazz and other Latin American musical traditions. Salsa music is celebrated for its vibrant rhythms, passionate dance styles, and its ability to bring people together across diverse backgrounds.</p>',
+                'cha-cha': "<p>Cha Cha first appeared in the 1950s.</p><p>Most prevalent in the 1950s-1960s.</p><p>Derived from mambo.</p><p>Cha Cha, with its infectious rhythm and easy-to-learn dance steps, became a dance craze both in Cuba and internationally. The genre's simplicity and elegance made it accessible to a wide audience, contributing to its enduring popularity on dance floors around the world.</p>",
+                bogaloo: "<p>Boogaloo first appeared in the 1960s.</p><p>Most prevalent in the mid to late 1960s.</p><p>A fusion of soul music with mambo and other Latin rhythms.</p><p>Boogaloo emerged in New York City as a groundbreaking blend of African American R&B/soul with Cuban mambo, creating a bilingual, bicultural sound that resonated with the city's diverse communities. Its catchy melodies, funky rhythms, and inclusive spirit captured the essence of 1960s urban America.</p>",
+                rnb: "<p>R&B, or Rhythm and Blues, first appeared in the late 1940s.</p><p>Most prevalent from the 1950s to the early 1960s, and experiencing a resurgence in popularity in various forms since then.</p><p>A genre characterized by its blend of jazz, gospel, and blues, R&B laid the groundwork for rock 'n' roll and later soul music. It introduced a more pronounced backbeat, emotive vocal delivery, and a focus on topics ranging from love and relationships to social issues.</p><p>R&B originated in African American communities, evolving from the blues and jazz music of the early 20th century. It became a cornerstone of American music, influencing a wide range of genres and producing a rich legacy of artists and bands. Its adaptable nature has allowed it to evolve over the decades, incorporating elements from other genres such as funk, hip-hop, and electronic music, ensuring its continued relevance and popularity in the music world.</p>",
+                'doop-woop': "<p>Doo-wop emerged in the 1940s, flourishing primarily in the urban centers of the United States among African American communities. This genre is known for its vocal harmonies, simple beats, and emotive lyrics, capturing the essence of teenage romance and adventures of the time.</p><p>It reached its peak popularity in the 1950s and early 1960s, becoming one of the most beloved genres of its era. The doo-wop sound was a significant precursor to rock 'n' roll and played a crucial role in the development of early R&B and soul music.</p><p>The hallmark of doo-wop was its vocal arrangement, which typically included a lead vocalist singing the melody, with a quartet or quintet providing harmonious background vocals. These background vocals often featured nonsensical phrases and sound effects—such as 'doo-wop'—that became synonymous with the genre. The use of a cappella singing and minimal instrumentation underscored the importance of vocal harmony and melody in doo-wop, setting it apart from other music styles of the time.</p><p>Doo-wop is characterized by its smooth harmonies, catchy melodies, and themes of love and longing, making it resonate with a wide audience. Groups like The Platters, The Drifters, and The Coasters, among others, were pivotal in popularizing the genre, leaving a lasting legacy that influenced the evolution of popular music. Doo-wop's emphasis on vocal harmony and the simplicity of its arrangements laid the groundwork for future musical developments, embedding its influence deeply within the fabric of American music culture. Its endearing qualities ensure that doo-wop remains a cherished genre, celebrated for its contribution to the richness of musical expression.</p>",
+                'latin-jazz': "<p>Latin Jazz first appeared in the early 20th century.</p><p>Most prevalent from the 1940s through the 1960s, it has continued to be a popular genre worldwide.</p><p>A fusion of Afro-Cuban and Caribbean rhythms with jazz and its improvisational techniques, Latin Jazz combines instruments and musical concepts from both traditions. This genre is characterized by its use of percussion instruments such as congas, timbales, and bongos, alongside the standard jazz ensemble setup. It introduces complex rhythms and time signatures derived from traditional Latin music, enriching the jazz sound palette.</p><p>Latin Jazz emerged as a distinct genre in the United States, where musicians from Cuba and Puerto Rico collaborated with American jazz musicians. The genre gained prominence through figures like Dizzy Gillespie and Mario Bauza, who were instrumental in its development. Latin Jazz has played a significant role in the broader jazz movement, contributing a unique and vibrant energy that has influenced many jazz musicians and listeners alike. Its dynamic nature and inclusive spirit continue to attract a diverse audience, ensuring its place in the panorama of global music.</p>",
+                'latin-soul': '<p>Latin Soul first appeared in the 1960s.</p><p>Most prevalent in the late 1960s-Early 1970s.</p><p>A blend of soul music with Cuban and Puerto Rican influences.</p><p>Latin Soul reflects the confluence of African American soul and R&B with the rich traditions of Latin music, creating a genre that speaks to themes of love, social justice, and community. Its emotive vocals and rhythmic diversity showcase the depth of cultural exchange and innovation within the Latin music scene.</p>',
+                'salsa-dura': "<p>Salsa Dura first appeared in the 1970s.</p><p>Most prevalent in the 1970s-1980s.</p><p>Focuses on the traditional, hardcore salsa sound.</p><p>Salsa Dura, or \"hard salsa,\" is known for its emphasis on the raw, powerful elements of traditional salsa, with complex arrangements and a strong focus on percussion and brass. It appeals to salsa purists and dancers alike, emphasizing musicality and the genre's Afro-Caribbean roots.</p>",
+                'salsa-romantica': "<p>Salsa Romántica first appeared in the 1980s.</p><p>Most prevalent in the 1990s.</p><p>A softer, more melodic variant of salsa.</p><p>Salsa Romántica introduced a more lyrical, melodic approach to salsa, with themes often centered around love and romance. Its smooth style and accessible lyrics broadened salsa's appeal, making it a popular genre for both dancing and listening.</p>",
+                timba: '<p>Timba first appeared in the late 1980s.</p><p>Most prevalent in the 1990s to early 2000s.</p><p>A Cuban music genre that incorporates elements of salsa, jazz, funk, and Afro-Cuban folk music.</p><p>Timba represents a modern evolution of Cuban music, distinguished by its aggressive rhythms, innovative arrangements, and the integration of electronic instruments. It reflects the contemporary sounds and social realities of Cuba, offering a fresh perspective within the salsa tradition.</p>',
+                classical: "<p>European Classical Music first appeared in the 11th century, with its influence peaking during the Baroque, Classical, and Romantic periods.</p><p>Most prevalent in Europe.</p><p>Notable innovation: Development of symphonic form, harmonic complexity, and varied musical textures.</p><p>European Classical Music, deeply rooted in Western art music traditions, has profoundly influenced various musical genres worldwide, including Danzón and other Cuban genres. This influence is evident in the harmonic structures, melodic development, and formal arrangements found in Danzón, where the sophisticated orchestration and compositional techniques of European Classical music blend with Afro-Cuban rhythms. The elegance and expressiveness of classical instruments, such as violins, flutes, and pianos, are incorporated into these Cuban genres, creating a rich, cross-cultural musical tapestry that bridges the old world and the new.</p>",
+                african: "<p>African Rhythms first appeared in ancient times, long before recorded history, with their influence permeating through millennia.</p><p>Most prevalent in Africa.</p><p>Notable innovation: Complex polyrhythms, call and response vocal patterns, and the use of a wide range of percussive instruments.</p><p>African Rhythms form the backbone of many musical genres around the world, notably influencing Danzón, Rumba, and other Cuban genres. These rhythms, characterized by their complexity and vitality, originated from various African cultures, each contributing unique patterns and textures to the musical landscape. The incorporation of African rhythms into Cuban music introduced a dynamic and intricate rhythmic foundation, enabling a rich interplay of percussion that is both captivating and deeply expressive. Through the transatlantic slave trade, these rhythms made their indelible mark on the New World, fostering a profound musical legacy that continues to enrich global music traditions.</p>",
+                spanish: "<p>Spanish Melodies first appeared in the Middle Ages, evolving significantly through the Renaissance and Baroque periods.</p><p>Most prevalent in Spain.</p><p>Notable innovation: Incorporation of guitar and complex harmonic structures, and development of distinct regional folk music traditions.</p><p>Spanish Melodies, with their rich harmonic language and distinctive melodic contours, have deeply influenced Afro-Cuban music, contributing to the development of genres such as Danzón, Son, and Guajira. These melodies reflect the diverse musical traditions of Spain, from the intricate artistry of Flamenco to the pastoral charm of regional folk songs. The Spanish guitar, both as an instrument and a symbol, plays a central role in this influence, offering a bridge between European harmonic concepts and African rhythmic patterns. The integration of Spanish melodies into Afro-Cuban music represents a cultural fusion that highlights the complexity and depth of Cuba’s musical heritage, echoing Spain’s historical and cultural ties with the island.</p>",
+                'cuban-folk': "<p>Cuban Folk music, deeply rooted in the island's diverse cultural heritage, began to flourish towards the end of the 19th century and continued its evolution into the first decades of the 20th century.</p><p>During this period, genres such as Trova, Bolero, and Son Cubano emerged, each contributing to the rich tapestry of Cuban music. Trova, known for its poetic lyrics and simple guitar accompaniment, highlighted the troubadour's role in Cuban society, narrating stories of love, social commentary, and political activism. Bolero, initially a slow-tempo dance music from Spain, was adapted in Cuba to express deep emotional narratives through its lyrics and melodies. Son Cubano, a fusion of Spanish guitar music with African rhythms, laid the groundwork for many modern music styles, including salsa.</p><p>Key figures in this era include José Pepe Sánchez, known as the father of the Cuban Trova for his bolero 'Tristezas'; Sindo Garay, whose 'Perla Marina' and 'Mujer Bayamesa' became anthems of Cuban identity; and Manuel Corona, who contributed 'Longina', enriching the trova genre with his lyrical prowess. The influence of composers like Nilo Menendez and Ernesto Lecuona, with classics such as 'Aquellos Ojos Verdes' and 'Siboney', bridged the gap between folk traditions and the burgeoning Cuban popular music scene.</p><p>These genres and artists collectively define Cuban Folk music of the era, reflecting the island's complex social and cultural dynamics. Their work captures the essence of Cuban identity, blending Spanish lyrical tradition with African rhythmic complexity, and continues to influence the global music landscape. Cuban Folk music from this period is a testament to the enduring spirit and creativity of the Cuban people, showcasing their ability to weave together diverse influences into a unique and compelling musical heritage.</p>",
+                flamenco: "<p>Flamenco first appeared in the 18th century.</p><p>Most prevalent in Andalusia, Spain.</p><p>Notable innovation: Intense vocal expression, intricate guitar playing, and passionate dance.</p><p>Originating from the cultural melting pot of Andalusia in southern Spain, Flamenco is a highly expressive, Spanish art form characterized by its vibrant guitar playing, profound vocal style, and emotive dance. Flamenco's roots can be traced to various influences, including Gypsy, Moorish, and Jewish traditions, among others. The genre is renowned for its deep emotional impact, technical guitar work, and the intricate rhythms and footwork of its dance, which together create a powerful performance that speaks to the human experience.</p>",
+            };
+        function handleClick(areaName) {
+            var selection = window.getSelection();
+    selection.removeAllRanges();
+console.log(areaName);
+                   // Get playlist ID based on the areaName from the playlistMapping object
+                   var playlistId = playlistMapping[areaName];
+
+// Open the playlist in a new window
+window.open("spotify:playlist:" + playlistId + ":play");
+                    $('#right-box').fadeOut(0);
+
+// Update the src value of the iframe
+var iframe = document.getElementById('player');
+$('#right-box').fadeOut(1500, function() {
+                // Replace src attribute
+                $("#player").attr('src', "https://open.spotify.com/embed/playlist/" + playlistId + "?utm_source=generator&theme=0");
+                $("#description").html(descriptionMapping[areaName]);
+
+                // Wait for 500 milliseconds (half a second)
+                setTimeout(function() {
+                    // Fade in the iframe
+                    $('#right-box').fadeIn(1500);
+                }, 0);
+            });
+}
+    
+
+console.log("done.");
+    </script>
+        </div>
+        <div id="right-box" class="right-box" sty>
+            <iframe id="player" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2xPfqBsx6f5TOW8lrci19V?utm_source=generator&theme=0" width="400" height="50%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div id="description" class="description-box" style="height:50%;padding:15px">
+            </div>
+        </div>
+    </div>
+    <script>
+        handleClick("salsa");
+    </script>
+</body>
+</html>
